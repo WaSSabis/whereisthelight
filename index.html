@@ -13,13 +13,11 @@
       font-family: 'Courier New', monospace;
       overflow: hidden;
     }
-
     /* === ЗАТЕМНЕНИЕ КАРТЫ === */
     #map {
       height: 100vh;
       filter: brightness(0.65) contrast(1.15) saturate(0.9);
     }
-
     /* === ЛОББИ === */
     #lobby {
       position: fixed;
@@ -92,7 +90,6 @@
       opacity: 0.6;
       animation: fadeIn 1s forwards 1.4s;
     }
-
     /* === ЭКРАН СО СВЕЧОЙ === */
     #candle-screen {
       position: fixed;
@@ -136,7 +133,6 @@
       opacity: 0.95;
       line-height: 1.5;
     }
-
     /* === ПОДТВЕРЖДЕНИЕ === */
     #confirm-modal {
       position: fixed;
@@ -152,7 +148,6 @@
     }
     #confirm-modal h3 {
       margin-bottom: 20px;
-
 
 color: #ffaa55;
       font-size: 1.5rem;
@@ -171,7 +166,6 @@ color: #ffaa55;
     }
     #confirm-yes { background: #d00; color: white; }
     #confirm-no { background: #333; color: #ccc; }
-
     /* === ИНФО-ПАНЕЛЬ (СЛЕВА СВЕРХУ) === */
     .info-panel {
       position: fixed;
@@ -208,7 +202,6 @@ color: #ffaa55;
       margin-top: 8px;
     }
     .clear-all-btn:hover { background: #3a2020; }
-
     /* === ПАНЕЛЬ ИНСТРУМЕНТОВ (СПРАВА СВЕРХУ) === */
     .toolbar {
       position: fixed;
@@ -245,7 +238,6 @@ color: #ffaa55;
       margin-top: 4px;
       opacity: 0.7;
     }
-
     /* === ЛЕГЕНДА (СЛЕВА СНИЗУ) === */
     .legend {
       position: fixed;
@@ -272,7 +264,6 @@ color: #ffaa55;
     .rect-color { background: rgba(255, 50, 50, 0.3); border: 1px solid #f55; }
     .circle-color { background: #ff5555; }
     .candle-color { background: #ffcc88; }
-
     /* === ПОДСКАЗКА (СНИЗУ ПО ЦЕНТРУ) === */
     .hint {
       position: fixed;
@@ -286,7 +277,6 @@ color: #ffaa55;
       opacity: 0.85;
       z-index: 999;
     }
-
     /* === ЧАТ === */
     #chat-box {
       position: fixed;
@@ -319,9 +309,9 @@ color: #ffaa55;
       color: white;
       padding: 6px 8px;
       font-family: 'Courier New', monospace;
+      font-size: 13px;
 
-font-size: 13px;
-    }
+}
     #chat-send {
       background: #333;
       color: #aaa;
@@ -335,7 +325,22 @@ font-size: 13px;
     .chat-msg { margin-bottom: 6px; word-wrap: break-word; }
     .chat-msg.me { color: #ffaa55; }
     .chat-msg.other { color: #888; }
-
+    /* === СТИЛЬ ВРЕМЕНИ НА ОТМЕТКАХ === */
+    .leaflet-tooltip.time-tooltip {
+      background: rgba(0, 0, 0, 0.75) !important;
+      border: 1px solid #444 !important;
+      border-radius: 4px !important;
+      color: #ffaa55 !important;
+      font-family: 'Courier New', monospace !important;
+      font-size: 12px !important;
+      padding: 2px 6px !important;
+      white-space: nowrap !important;
+      box-shadow: 0 0 6px rgba(0,0,0,0.7) !important;
+      pointer-events: none !important;
+    }
+    .leaflet-tooltip.time-tooltip::before {
+      display: none !important;
+    }
     /* === АНИМАЦИИ === */
     @keyframes fadeIn { to { opacity: 1; } }
     @keyframes slideUp {
@@ -344,12 +349,10 @@ font-size: 13px;
         transform: translateY(0);
       }
     }
-
     .leaflet-control-attribution { display: none !important; }
   </style>
 </head>
 <body>
-
 <!-- ЛОББИ -->
 <div id="lobby">
   <h1>ГДЕ СВЕТ?</h1>
@@ -362,13 +365,11 @@ font-size: 13px;
   </div>
   <div id="lobby-footer">Данные не уходят в сеть. Всё хранится только у вас.</div>
 </div>
-
 <!-- СВЕЧА -->
 <div id="candle-screen">
   <div class="candle-big"></div>
   <div id="candle-text">Ваша свеча зажжена.<br>Вы не одни в темноте.</div>
 </div>
-
 <!-- ПОДТВЕРЖДЕНИЕ -->
 <div id="confirm-modal">
   <h3>Подтвердите действие</h3>
@@ -378,10 +379,8 @@ font-size: 13px;
     <button class="confirm-btn" id="confirm-yes">Подтвердить</button>
   </div>
 </div>
-
 <!-- КАРТА -->
 <div id="map"></div>
-
 <!-- ИНФО-ПАНЕЛЬ -->
 <div class="info-panel">
   <h3>Москва · Статус</h3>
@@ -395,7 +394,6 @@ font-size: 13px;
   </div>
   <button class="clear-all-btn" id="clear-all">Очистить все отметки</button>
 </div>
-
 <!-- ПАНЕЛЬ ИНСТРУМЕНТОВ -->
 <div class="toolbar">
   <div class="tool-btn active" id="tool-rect" title="Выделить район">
@@ -415,7 +413,6 @@ font-size: 13px;
     <div class="tool-label">Отмена</div>
   </div>
 </div>
-
 <!-- ЛЕГЕНДА -->
 <div class="legend">
   <div class="legend-item">
@@ -427,10 +424,8 @@ font-size: 13px;
     <span>Отдельное здание</span>
   </div>
 </div>
-
 <!-- ПОДСКАЗКА -->
 <div class="hint" id="hint">Выделите участок: зажмите и потяните</div>
-
 <!-- ЧАТ -->
 <div id="chat-box">
   <div id="chat-messages"></div>
@@ -439,13 +434,12 @@ font-size: 13px;
     <button id="chat-send">→</button>
   </div>
 </div>
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+> Donatella(na):
 <script>
   const TTL = 3 * 60 * 60 * 1000;
   const STORAGE_KEY = 'moscow_outages_pro';
-
   let outages = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
   let markers = [];
   let map = null;
@@ -456,7 +450,6 @@ font-size: 13px;
   let pendingRect = null;
   let pendingPoint = null;
   const history = [];
-
   const MKAD_BOUNDS = [[55.566, 37.343], [55.922, 37.945]];
 
   // === Время ===
@@ -469,7 +462,7 @@ font-size: 13px;
   setInterval(updateTime, 1000);
   updateTime();
 
-// === Формат телефона ===
+  // === Формат телефона ===
   document.getElementById('phone-input').addEventListener('input', function(e) {
     let val = e.target.value.replace(/\D/g, '');
     if (val.startsWith('8')) val = '7' + val.slice(1);
@@ -525,10 +518,9 @@ font-size: 13px;
     pendingRect = data;
     document.getElementById('confirm-modal').style.display = 'flex';
   }
-
   document.getElementById('confirm-yes').onclick = () => {
     if (pendingRect) {
-      history.push({ action: 'add',  pendingRect });
+      history.push({ action: 'add', data: pendingRect });
       outages.push(pendingRect);
       save();
       pendingRect = null;
@@ -551,20 +543,25 @@ font-size: 13px;
     render();
   }
 
+  // === Формат времени ЧЧ:ММ ===
+  function formatTime(ts) {
+    const d = new Date(ts);
+    return d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0');
+  }
+
   // === КАРТА ===
   function initMap() {
-    const kremlin = [55.751244, 37.618423];
+
+const kremlin = [55.751244, 37.618423];
     map = L.map('map', {
       minZoom: 10,
       maxZoom: 16,
       maxBounds: MKAD_BOUNDS,
       maxBoundsViscosity: 1.0
     }).setView(kremlin, 11);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap'
     }).addTo(map);
-
     cleanup();
     render();
     setupTools();
@@ -575,18 +572,35 @@ font-size: 13px;
     if (!map) return;
     markers.forEach(m => map.removeLayer(m));
     markers = [];
-
     const now = Date.now();
     let count = 0;
+
     outages.forEach(item => {
       if (now - item.ts >= TTL) return;
+
       let shape;
+      const timeStr = formatTime(item.ts);
+
       if (item.type === 'rect') {
         shape = L.rectangle([[item.lat, item.lng], [item.lat2, item.lng2]], {
           color: '#ff3333',
           fillOpacity: 0.25,
           weight: 2
         });
+        // Добавляем время в центр прямоугольника
+        const centerLat = (item.lat + item.lat2) / 2;
+        const centerLng = (item.lng + item.lng2) / 2;
+        const centerMarker = L.marker([centerLat, centerLng], {
+          interactive: false,
+          keyboard: false,
+          opacity: 0
+        });
+        centerMarker.bindTooltip(timeStr, {
+          permanent: true,
+          className: 'time-tooltip',
+          opacity: 0.9
+        }).addTo(map);
+        markers.push(centerMarker);
       } else if (item.type === 'point') {
         shape = L.circleMarker([item.lat, item.lng], {
           radius: 7,
@@ -595,7 +609,14 @@ font-size: 13px;
           fillOpacity: 0.9,
           weight: 1
         });
+        shape.bindTooltip(timeStr, {
+          permanent: true,
+          className: 'time-tooltip',
+          opacity: 0.9,
+          offset: [0, -12]
+        });
       }
+
       if (shape) {
         shape.addTo(map);
         markers.push(shape);
@@ -603,7 +624,7 @@ font-size: 13px;
       }
     });
 
-document.getElementById('zones-count').textContent = count;
+    document.getElementById('zones-count').textContent = count;
   }
 
   function setupTools() {
@@ -611,7 +632,6 @@ document.getElementById('zones-count').textContent = count;
       currentTool = tool;
       document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById(`tool-${tool}`).classList.add('active');
-
       const hint = document.getElementById('hint');
       if (tool === 'rect') {
         hint.textContent = 'Выделите район: зажмите и потяните';
@@ -623,7 +643,6 @@ document.getElementById('zones-count').textContent = count;
         hint.textContent = '';
       }
     };
-
     document.getElementById('tool-rect').onclick = () => setActive('rect');
     document.getElementById('tool-point').onclick = () => setActive('point');
     document.getElementById('tool-eraser').onclick = () => setActive('eraser');
@@ -639,7 +658,6 @@ document.getElementById('zones-count').textContent = count;
 
   function setupMapEvents() {
     if (!map) return;
-
     map.on('mousedown', (e) => {
       if (currentTool !== 'rect') return;
       isDragging = true;
@@ -647,7 +665,6 @@ document.getElementById('zones-count').textContent = count;
       tempRect = null;
       map.dragging.disable();
     });
-
     map.on('mousemove', (e) => {
       if (!isDragging || !dragStart) return;
       if (tempRect) map.removeLayer(tempRect);
@@ -657,13 +674,13 @@ document.getElementById('zones-count').textContent = count;
         dashArray: '4, 4'
       }).addTo(map);
     });
-
     map.on('mouseup', () => {
       if (!isDragging) return;
       isDragging = false;
       if (tempRect) {
         const bounds = tempRect.getBounds();
-        map.removeLayer(tempRect);
+
+map.removeLayer(tempRect);
         showConfirm({
           type: 'rect',
           lat: bounds.getSouthWest().lat,
@@ -677,7 +694,6 @@ document.getElementById('zones-count').textContent = count;
       tempRect = null;
       dragStart = null;
     });
-
     map.on('click', (e) => {
       if (currentTool === 'point') {
         showConfirm({
@@ -706,7 +722,7 @@ document.getElementById('zones-count').textContent = count;
         }
         if (foundIndex >= 0) {
           const removed = outages.splice(foundIndex, 1)[0];
-          history.push({ action: 'remove',  removed });
+          history.push({ action: 'remove', data: removed });
           save();
         }
       }
@@ -717,7 +733,9 @@ document.getElementById('zones-count').textContent = count;
     if (history.length === 0) return;
     const last = history.pop();
     if (last.action === 'add') {
-      outages = outages.filter(item => JSON.stringify(item) !== JSON.stringify(last.data));
+      outages = outages.filter(item => {
+        return !(item.type === last.data.type && item.ts === last.data.ts);
+      });
     } else if (last.action === 'remove') {
       outages.push(last.data);
     }
